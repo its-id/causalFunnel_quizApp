@@ -9,7 +9,7 @@ const OverviewPanel = () => {
   const { userQuizData, currentQuestion, setCurrentQuestion, showReport }: any = useContext(AppContext);
 
   return (
-    <div className="py-2 px-2 w-[100vw] flex overflow-x-auto justify-start md:justify-center shadow-lg gap-x-2 md:gap-x-4 bg-white">
+    <div className="py-2 px-2 w-full flex overflow-x-auto justify-start md:justify-center shadow-lg gap-x-2 md:gap-x-4 bg-white">
       {userQuizData &&
         userQuizData?.length > 0 &&
         userQuizData.map((item: any) => {

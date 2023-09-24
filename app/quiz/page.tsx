@@ -17,7 +17,7 @@ const QuizPage = () => {
   return (
     <div className="flex flex-col">
       <Navbar session={session} />
-      <main className="flex-1 bg-[#F5F5F5]">
+      <main className="items-stretch bg-[#F5F5F5]">
         <HomeLayout />
       </main>
     </div>

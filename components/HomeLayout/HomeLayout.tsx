@@ -32,7 +32,7 @@ const HomeLayout = () => {
   if (!userQuizData.length) return <div className="min-h-[85vh] flex justify-center items-center"><span className="loader"></span></div>;
 
   return (
-    <div className="flex flex-col min-h-[85vh]">
+    <div className="flex flex-col min-h-[86vh]">
       {!endQuiz || showReport ? <OverviewPanel /> : <></>}
 
       {endQuiz && !showReport ? (
