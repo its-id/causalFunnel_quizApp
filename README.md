@@ -83,7 +83,7 @@ To efficiently pass important data between components, I used React Context. Thi
 
 In summary, my approach to the project involved setting up user authentication, creating a structured quiz page with multiple layers for navigation and presentation, and managing data flow between components using React Context for a more organized and functional application.
 
---
+---
 
 ## Future Works
 - Implement server-side storage to store quiz data, allowing users to resume quizzes even after a reload.
