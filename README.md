@@ -4,7 +4,7 @@
 - [Overview](#overview)
 - [Images](#images)
 - [Project Structure](#project-structure)
-- [My Approach](#approach)
+- [My Approach](#my-approach)
 - [Features](#features)
 - [Future Works](#future-works)
 
