@@ -15,7 +15,7 @@ const Navbar = ({ session }: any) => {
   const [seconds, setSeconds] = useState(1800);
 
   const endQuizHandler = () => {
-    const toastId = toast.loading("Submitting Quiz...");
+    const toastId = toast.loading("Submitting Quiz....");
     calculateScore();
     setTimeout(() => {
       setEndQuiz(true);
