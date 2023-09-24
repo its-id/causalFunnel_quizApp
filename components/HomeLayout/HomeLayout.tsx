@@ -41,8 +41,8 @@ const HomeLayout = () => {
             <p className="text-lg text-gray-800 font-medium">Quiz has been submitted successfully!</p>
             <p className="text-4xl">
               You scored{" "}
-              <span className={`font-bold ${score < 10 ? "text-orange-700" : score < 20 ? "text-orange-500" : "text-green-600"}`}>{score}</span>
-              <span className="font-bold">/30</span>!
+              <span className={`font-bold ${score < 5 ? "text-orange-700" : score < 10 ? "text-orange-500" : "text-green-600"}`}>{score}</span>
+              <span className="font-bold">/15</span>!
             </p>
             <button
               type="button"
