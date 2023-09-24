@@ -36,7 +36,7 @@ const HomeLayout = () => {
       {!endQuiz || showReport ? <OverviewPanel /> : <></>}
 
       {endQuiz && !showReport ? (
-        <div className="w-[90%] md:w-1/2 min-h-[50vh] mx-auto mt-10 px-5 py-8 bg-white rounded-xl">
+        <div className="w-[90%] lg:w-1/2 min-h-[50vh] mx-auto mt-10 px-5 py-8 bg-white rounded-xl">
           <div className="flex flex-col items-center space-y-12">
             <p className="text-lg text-gray-800 font-medium">Quiz has been submitted successfully!</p>
             <p className="text-4xl">
@@ -68,7 +68,7 @@ const HomeLayout = () => {
             userQuizData.map((item: any, index: number) => {
               return (
                 <SwiperSlide key={item.id}>
-                  <div className="w-[90%] md:w-1/2 min-h-[50vh] mx-auto mt-10 px-5 py-8 bg-white rounded-xl">
+                  <div className="w-[90%] lg:w-1/2 min-h-[50vh] mx-auto mt-10 px-5 py-8 bg-white rounded-xl">
                     <QCardComponent currQCardItem={item} setCurrentQuestion={setCurrentQuestion} />
                   </div>
                 </SwiperSlide>

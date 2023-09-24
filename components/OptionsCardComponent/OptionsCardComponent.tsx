@@ -62,7 +62,7 @@ const OptionsCardComponent = ({ shuffledOptions, currAnswer, selectAnswer, corre
                         checked
                           ? `${!showReport ? "text-indigo-900" : option === correctAnswer ? "text-green-800" : "text-red-800"}`
                           : "text-gray-900",
-                        "ml-3 flex-1 flex font-medium "
+                        "ml-3 flex-1 flex font-medium"
                       )}
                     >
                       <span className="mr-2">{String.fromCharCode("A".charCodeAt(0) + index)}.</span>

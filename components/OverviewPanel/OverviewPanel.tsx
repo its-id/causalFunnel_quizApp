@@ -9,7 +9,7 @@ const OverviewPanel = () => {
   const { userQuizData, currentQuestion, setCurrentQuestion, showReport }: any = useContext(AppContext);
 
   return (
-    <div className="py-2 px-2 w-full flex overflow-x-auto mx-auto sm:justify-center shadow-lg gap-x-2 md:gap-x-10 bg-white">
+    <div className="py-2 px-2 w-[100vw] flex overflow-x-auto justify-start md:justify-center shadow-lg gap-x-2 md:gap-x-4 bg-white">
       {userQuizData &&
         userQuizData?.length > 0 &&
         userQuizData.map((item: any) => {
@@ -17,7 +17,7 @@ const OverviewPanel = () => {
             <button
               onClick={() => setCurrentQuestion(item.id)}
               type="button"
-              className={`w-10 h-auto md:h-10 inline-flex justify-center items-center border text-base rounded-full shadow-sm ${
+              className={`w-8 h-8 inline-flex justify-center items-center border text-xs md:text-sm md:text-base rounded-full shadow-sm ${
                 currentQuestion === item.id
                   ? `border-2 ${
                       !showReport || !item.userAnswer

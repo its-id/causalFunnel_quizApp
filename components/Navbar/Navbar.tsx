@@ -15,10 +15,10 @@ const Navbar = ({ session }: any) => {
   const [seconds, setSeconds] = useState(1800);
 
   const endQuizHandler = () => {
-    toast.success("Quiz submitted Successfully!");
     calculateScore();
     setTimeout(() => {
       setEndQuiz(true);
+      toast.success("Quiz submitted Successfully!");
       setCurrentQuestion(0);
     }, 1000);
   };
