@@ -15,6 +15,7 @@ const OverviewPanel = () => {
         userQuizData.map((item: any) => {
           return (
             <button
+              key={item.id}
               onClick={() => setCurrentQuestion(item.id)}
               type="button"
               className={`w-8 h-8 inline-flex justify-center items-center border text-xs md:text-sm md:text-base rounded-full shadow-sm ${

@@ -39,7 +39,6 @@ const SignInPage = () => {
         redirect: true,
         callbackUrl,
       });
-
       if (res) {
         if (res.status === 200) {
           toast.success("Signed in successfully!", {

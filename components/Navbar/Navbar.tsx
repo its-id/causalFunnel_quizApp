@@ -15,11 +15,13 @@ const Navbar = ({ session }: any) => {
   const [seconds, setSeconds] = useState(1800);
 
   const endQuizHandler = () => {
-    toast.loading("Submitting quiz!");
+    const toastId = toast.loading("Submitting Quiz...");
     calculateScore();
     setTimeout(() => {
       setEndQuiz(true);
-      toast.success("Quiz submitted Successfully!");
+      toast.success("Quiz submitted Successfully!", {
+        id: toastId,
+      });
       setCurrentQuestion(0);
     }, 1000);
   };
@@ -46,22 +48,10 @@ const Navbar = ({ session }: any) => {
     return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
   };
 
-  const handleSignout = async (e: any) => {
-    e.preventDefault();
-    const toastId = toast.loading("Signing Out...");
-    const res: any = await signOut();
-    console.log('res signout', res);
-    if (res) {
-      if (res.status === 200) {
-        toast.success("Signed in successfully!", {
-          id: toastId,
-        });
-      } else {
-        toast.error("Invalid credentials!");
-        return;
-      }
-    }
-  }
+  const handleSignout = () => {
+    toast.loading("Signing Out...");
+    signOut({ redirect: true, callbackUrl: "/signin?callbackUrl=/quiz" });
+  };
 
   return (
     <div className="sticky z-10 top-0 flex-shrink-0 flex min-h-16 py-6 bg-[#0e1111] text-white">
@@ -146,7 +136,7 @@ const Navbar = ({ session }: any) => {
                   <Menu.Item>
                     {({ active }) => (
                       <button
-                        onClick={handleSignout}
+                        onClick={() => handleSignout()}
                         className={classNames(active ? "bg-gray-100" : "", "text-left w-full block px-4 py-2 text-sm text-gray-700")}
                       >
                         Sign out
