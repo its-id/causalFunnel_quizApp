@@ -1,0 +1,4 @@
+/*    /signin    200
+/*    /quiz    200
+/*    /api/auth/*    200
+/signin/*    /*    200
