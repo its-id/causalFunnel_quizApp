@@ -13,7 +13,14 @@
 ## Overview 
 The **Quiz App** is a web application built using Next.js that allows users to take quizzes after signing in. It features a user-friendly interface with a timer, question overview, and detailed performance analysis.
 
+---
+
 ## Images
+<img width="960" alt="image" src="https://github.com/its-id/assg/assets/60315832/70d09dfd-a918-406d-8796-da4600ac896e">
+
+<img width="960" alt="image" src="https://github.com/its-id/assg/assets/60315832/c680db68-edd2-4297-a9af-cf9a7a5461c8">
+
+---
 
 ## Project Structure
 ```mermaid
@@ -30,8 +37,9 @@ flowchart TD
 
 13((Signin Page)) ---> 14[[Google Signin]] --- 15[[Email Signin]]
 ```
+---
 
-### Features 
+## Features 
 - User authentication for accessing quizzes.
 - A timer that counts down 30 minutes as soon as questions are fetched.
 - An option to end the quiz manually if the user completes it before the timer expires.
@@ -45,7 +53,7 @@ flowchart TD
 
 ---
 
-### My Approach 
+## My Approach 
 I was assigned the FullStack Developer Internship project at CausalFunnel. Here's a breakdown of my approach to creating the project:
 
 **1. Initial Setup**
@@ -75,11 +83,12 @@ To efficiently pass important data between components, I used React Context. Thi
 
 In summary, my approach to the project involved setting up user authentication, creating a structured quiz page with multiple layers for navigation and presentation, and managing data flow between components using React Context for a more organized and functional application.
 
----
+--
 
 ## Future Works
 - Implement server-side storage to store quiz data, allowing users to resume quizzes even after a reload.
 
+---
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
