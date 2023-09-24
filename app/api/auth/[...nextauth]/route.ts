@@ -11,11 +11,10 @@ export const authOptions = {
       authorize(credentials) {
         const {name, email}: any = credentials;
         //for now, we don't need to check the credentials
-        if(!name || !email) return null;
         const user = {
           id: 1,
-          name,
-          email,
+          name: name || 'John Doe',
+          email: email || 'john@doe.com',
         };
         return user as any;
       },

@@ -21,11 +21,12 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (session) {
-      redirect(callbackUrl); //or redirect to callbackUrl
+      redirect('/quiz'); //or redirect to callbackUrl
     }
   }, [session]);
 
   const handleSubmit = async (e: any) => {
+    e.preventDefault();
     if (!userInfo.email || !userInfo.name) {
       toast.error("Please enter both your name and email!");
       return;

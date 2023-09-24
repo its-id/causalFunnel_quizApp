@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
 
 export async function GET() {
-  const session = await getServerSession(authOptions);
+  const session: any = await getServerSession(authOptions);
 
   if (!session) {
     return NextResponse.json({ message: "You are not logged in." });
