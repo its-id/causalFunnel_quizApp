@@ -14,7 +14,7 @@ function classNames(...classes: any) {
 const Navbar = ({ session }: any) => {
   const { endQuiz, setEndQuiz, calculateScore, showReport, setShowReport, setCurrentQuestion }: any = useContext(AppContext);
   const [seconds, setSeconds] = useState(1800);
-  const [openConfirmSubmit, setOpenConfirmSubmit] = useState<boolean>(true);
+  const [openConfirmSubmit, setOpenConfirmSubmit] = useState<boolean>(false);
 
   const endQuizHandler = () => {
     const toastId = toast.loading("Submitting Quiz....");

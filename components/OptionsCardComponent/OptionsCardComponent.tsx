@@ -6,7 +6,7 @@ function classNames(...classes: any[]) {
 }
 
 //component showing all options for a question
-const OptionsCardComponent = ({ shuffledOptions, currAnswer, selectAnswer, correctAnswer, showReport }: any) => {
+const OptionsCardComponent = ({ shuffledOptions, currAnswer, selectAnswer, correctAnswer, formatText, showReport }: any) => {
   const [selected, setSelected] = useState(currAnswer);
 
   const handleSelectAnswer = (answer: string) => {
@@ -67,7 +67,7 @@ const OptionsCardComponent = ({ shuffledOptions, currAnswer, selectAnswer, corre
                     >
                       <span className="mr-2">{String.fromCharCode("A".charCodeAt(0) + index)}.</span>
                       {/* make the span left aligned and remove extra spaces */}
-                      <span className="text-left">{option}</span>
+                      <span className="text-left">{formatText(option)}</span>
                     </RadioGroup.Label>
                   </div>
                 </>

@@ -9,7 +9,7 @@ export interface QCardComponentProps {
 
 //component showing question and options
 const QCardComponent = ({ currQCardItem }: any) => {
-  const { selectAnswer, showReport }: any = useContext(AppContext);
+  const { selectAnswer, showReport, formatText }: any = useContext(AppContext);
 
   return (
     <>
@@ -23,6 +23,7 @@ const QCardComponent = ({ currQCardItem }: any) => {
         correctAnswer={currQCardItem.correctAnswer}
         selectAnswer={selectAnswer}
         showReport={showReport}
+        formatText={formatText}
       />
     </>
   );

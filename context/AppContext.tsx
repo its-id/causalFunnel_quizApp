@@ -21,9 +21,9 @@ export const AppProvider = ({ children }: any) => {
   const [score, setScore] = useState(0);
   const [userQuizData, setUserQuizData] = useState<UserQuizDataProps[]>([]);
 
-  const formatQuestion = (question: string) => {
+  const formatText = (text: string) => {
     //replace symbols like &quot; etc with their respective characters
-    return question.replace(/(&quot;|&#039;|&amp;|&shy;)/g, (match) => {
+    return text.replace(/(&quot;|&#039;|&amp;|&shy;)/g, (match) => {
       switch (match) {
         case "&quot;":
           return '"';
@@ -52,7 +52,7 @@ export const AppProvider = ({ children }: any) => {
         tempUserQuizData.push({
           id: index,
           userAnswer: "",
-          question: formatQuestion(q.question),
+          question: formatText(q.question),
           correctAnswer: q.correct_answer,
           difficulty: q.difficulty,
           options: shuffledOptions,
@@ -97,6 +97,7 @@ export const AppProvider = ({ children }: any) => {
         selectAnswer,
         getUserQuizData,
         calculateScore,
+        formatText,
       }}
     >
       {children}
