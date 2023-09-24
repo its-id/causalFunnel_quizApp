@@ -1,15 +1,31 @@
-import react from "react"
-import OptionsCardComponent from "../OptionsCardComponent/OptionsCardComponent"
+import react, { useContext, useEffect } from "react";
+import OptionsCardComponent from "../OptionsCardComponent/OptionsCardComponent";
+import AppContext from "@/context/AppContext";
 
 export interface QCardComponentProps {
-    title: string,
-    description: string
+  title: string;
+  description: string;
 }
 
-const QCardComponent = () => {
+//component showing question and options
+const QCardComponent = ({ currQCardItem }: any) => {
+  const { selectAnswer, showReport }: any = useContext(AppContext);
+
   return (
-    <div><OptionsCardComponent /></div>
-  )
-}
+    <>
+      <div className="flex items-center gap-x-3">
+        <p className="text-xl font-semibold">Q{currQCardItem.id + 1}.</p>
+        <p className="text-lg text-left">{currQCardItem.question}</p>
+      </div>
+      <OptionsCardComponent
+        shuffledOptions={currQCardItem.options}
+        currAnswer={currQCardItem.userAnswer}
+        correctAnswer={currQCardItem.correctAnswer}
+        selectAnswer={selectAnswer}
+        showReport={showReport}
+      />
+    </>
+  );
+};
 
-export default QCardComponent
+export default QCardComponent;

@@ -30,7 +30,7 @@ const SignInPage = () => {
       toast.error("Please enter both your name and email!");
       return;
     } else {
-      const toastId = toast.loading("Signing in...");
+      const toastId = toast.loading("Entering the Quiz...");
       //signin with email and name
       const res = await signIn("credentials", {
         name: userInfo.name,
@@ -41,7 +41,7 @@ const SignInPage = () => {
 
       if (res) {
         if (res.status === 200) {
-          toast.success("Logged in successfully!", {
+          toast.success("Signed in successfully!", {
             id: toastId,
           });
         } else {

@@ -1,31 +1,102 @@
 "use client";
 
-// import { SessionProvider, useSession } from "next-auth/react";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
+
+interface UserQuizDataProps {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  difficulty: string;
+  category: string;
+  userAnswer: string;
+}
 
 const AppContext: any = createContext(null);
 
 export const AppProvider = ({ children }: any) => {
-  const [quizData, setQuizData] = useState<any>([]);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [endQuiz, setEndQuiz] = useState<boolean>(false);
+  const [showReport, setShowReport] = useState<boolean>(false);
+  const [score, setScore] = useState(0);
+  const [userQuizData, setUserQuizData] = useState<UserQuizDataProps[]>([]);
 
-  const fetchQuizData = async () => {
-    const response = await fetch("https://opentdb.com/api.php?amount=15");
-    const data = await response.json();
-    console.log("response data", data);
-    // setQuizData(data.results);
+  const formatQuestion = (question: string) => {
+    //replace symbols like &quot; etc with their respective characters
+    return question.replace(/(&quot;|&#039;|&amp;|&shy;)/g, (match) => {
+      switch (match) {
+        case "&quot;":
+          return '"';
+        case "&#039;":
+          return "'";
+        case "&amp;":
+          return "&";
+        case "&shy;":
+          return "-";
+        default:
+          return match;
+      }
+    });
   };
 
-  //write a function to call fetch api from link https://opentdb.com/api.php?amount=15 store the results in quizData
-//   useEffect(() => {
-//     fetchQuizData();
-//   }, []);
+  //fetch quiz data from opentdb api and push into userQuizData format
+  const getUserQuizData = async () => {
+    const response = await fetch("https://opentdb.com/api.php?amount=15");
+    const data = await response.json();
+    const tempUserQuizData: UserQuizDataProps[] = [];
+    data.results.length > 0 &&
+      data.results.forEach((q: any, index: number) => {
+        const combineOptions = [...q.incorrect_answers, q.correct_answer];
+        const shuffledOptions = combineOptions.sort(() => Math.random() - 0.5);
+
+        tempUserQuizData.push({
+          id: index,
+          userAnswer: "",
+          question: formatQuestion(q.question),
+          correctAnswer: q.correct_answer,
+          difficulty: q.difficulty,
+          options: shuffledOptions,
+          category: q.category,
+        });
+      });
+
+    setUserQuizData(tempUserQuizData);
+  };
+
+  const selectAnswer = (answer: string) => {
+    const tempUserQuizData = [...userQuizData];
+    tempUserQuizData[currentQuestion] = {
+      ...userQuizData[currentQuestion],
+      userAnswer: answer,
+    };
+    setUserQuizData(tempUserQuizData);
+  };
+
+  const calculateScore = () => {
+    let tempScore = 0;
+    userQuizData.forEach((item: any) => {
+      if (item.userAnswer === item.correctAnswer) {
+        tempScore += 1;
+      }
+    });
+    setScore(tempScore);
+  }
 
   return (
     <AppContext.Provider
       value={{
-        quizData,
-        setQuizData,
-        fetchQuizData,
+        currentQuestion,
+        setCurrentQuestion,
+        endQuiz,
+        setEndQuiz,
+        showReport,
+        setShowReport,
+        score,
+        setScore,
+        userQuizData,
+        selectAnswer,
+        getUserQuizData,
+        calculateScore,
       }}
     >
       {children}

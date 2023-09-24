@@ -1,56 +1,99 @@
 "use client";
 
 import toast, { Toaster } from "react-hot-toast";
-
-import Image from "next/image";
-import { Fragment } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { signOut } from "next-auth/react";
-import profileIcon from "@/public/profileIcon.svg";
-// import bellIcon from "../../../public/dashbaord/bellIcon.svg";
-// import searchIcon from "../../../public/dashbaord/searchIcon.svg";
-// import menuIcon from "../../../public/dashbaord/menuIcon.svg";
-
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-];
+import AppContext from "@/context/AppContext";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = ({ session, setSidebarOpen }: any) => {
+const Navbar = ({ session }: any) => {
+  const { endQuiz, setEndQuiz, calculateScore, showReport, setShowReport, setCurrentQuestion }: any = useContext(AppContext);
+  const [seconds, setSeconds] = useState(1800);
+
+  const endQuizHandler = () => {
+    toast.success("Quiz submitted Successfully!");
+    calculateScore();
+    setTimeout(() => {
+      setEndQuiz(true);
+      setCurrentQuestion(0);
+    }, 1000);
+  };
+
+  //start decrement quiz timer only if userQuizData is fetched
+  useEffect(() => {
+    let interval: any;
+    if (seconds > 0) {
+      interval = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+    } else {
+      endQuizHandler();
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [seconds]);
+
+  //format the seconds to mm:ss
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const remainingSeconds = time % 60;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
+
   return (
-    <div className="sticky top-0 flex-shrink-0 flex min-h-16 py-6 bg-[#0e1111] text-white">
+    <div className="sticky z-10 top-0 flex-shrink-0 flex min-h-16 py-6 bg-[#0e1111] text-white">
       <div className="flex-1 flex px-4 justify-between">
         <div className="hidden flex-1 px-4 sm:flex items-center">
           <p className="tracking-wide font-bold text-xl">Welcome to the Quiz!</p>
         </div>
         <div className="flex-1 md:flex-0 flex items-stretch justify-end items-center md:ml-6 rounded-lg">
-          <button
-            type="button"
-            className="inline-flex items-center px-2.5 py-1.5 mx-4 md:mx-6 border border-transparent text-xs shadow-sm font-medium rounded text-white bg-blue-950"
-            disabled
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="-ml-1 mr-3 h-5 w-5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Timer
-          </button>
-          <button
-            type="button"
-            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          >
-            End Quiz
-          </button>
+          {!endQuiz && !showReport ? (
+            <>
+              <button
+                type="button"
+                className="inline-flex items-center w-24 h-9 justify-center items-center mx-4 md:mx-6 border border-transparent text-xs shadow-sm font-medium rounded text-white bg-blue-950"
+                disabled
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="-ml-1 mr-3 h-5 w-5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {endQuiz ? "Times Up!" : formatTime(seconds)}
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                onClick={endQuizHandler}
+              >
+                End Quiz
+              </button>
+            </>
+          ) : (
+            showReport && (
+              <>
+                <button
+                  type="button"
+                  className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-700 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  onClick={() => {
+                    setShowReport(false);
+                  }}
+                >
+                  Back to Summary
+                </button>
+              </>
+            )
+          )}
 
           <div className="mx-4 flex items-center md:mx-6">
             {/* Profile dropdown */}
@@ -76,23 +119,12 @@ const Navbar = ({ session, setSidebarOpen }: any) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="origin-top-right z-10 bg-white absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="origin-top-right z-20 bg-white absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <Menu.Item>
                     <button disabled className="block px-4 py-2 text-sm text-gray-700 border-b border-gray-300 w-full text-left">
-                      {/* {session?.user?.email ? session?.user?.email : userEmail} */}
-                      {session?.user?.name && session?.user?.name}
+                      Welcome! {session?.user?.name && session?.user?.name}
                     </button>
                   </Menu.Item>
-
-                  {userNavigation.map((item) => (
-                    <Menu.Item key={item.name}>
-                      {({ active }) => (
-                        <a href={item.href} className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}>
-                          {item.name}
-                        </a>
-                      )}
-                    </Menu.Item>
-                  ))}
                   <Menu.Item>
                     {({ active }) => (
                       <button

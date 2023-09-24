@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar/Navbar";
@@ -15,11 +14,9 @@ const QuizPage = () => {
     },
   }); //client side
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
     <div className="flex flex-col">
-      <Navbar session={session} setSidebarOpen={setSidebarOpen} />
+      <Navbar session={session} />
       <main className="flex-1 bg-[#F5F5F5]">
         <HomeLayout />
       </main>
